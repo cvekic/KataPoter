@@ -8,40 +8,34 @@ import java.util.Map;
  */
 public class BookStoreCheckout {
 
+    public static final BigDecimal FULL_PRICE_PF_BOOKS = new BigDecimal(8.00);
+    Map<String, Integer> items = new HashMap<String, Integer>();
     DiscountCalculator discountCalculator = new DiscountCalculatorImpl();
 
-    public static final BigDecimal PRICE_OF_BOOK = new BigDecimal(8.00);
-
-    private Map<String, Integer> items = new HashMap<String, Integer>();
-
-
-    public void buy(String isbn) {
-        Integer itemCount = items.get(isbn);
-        if(itemCount == null) {
-            itemCount = 0;
+    public void buy(String isbm) {
+        Integer itemsCount = items.get(isbm);
+        if (itemsCount == null) {
+            itemsCount = 0;
         }
-        items.put(isbn, itemCount + 1);
+        items.put(isbm, itemsCount +1);
     }
-
 
     public BigDecimal total() {
-        BigDecimal fullPrice = calculateFullPrice();
-        BigDecimal discountPrice = discountCalculator.calculateDiscount(new ArrayList<Integer>(items.values()));
-        return fullPrice.subtract(discountPrice);
+        BigDecimal fullPrie = calculatePrice();
+        BigDecimal dicount = discountCalculator.calculateDiscount(new ArrayList<Integer>(items.values()));
+        return fullPrie.subtract(dicount);
     }
 
-    private BigDecimal calculateFullPrice() {
-        int bookCount = totalBookCount();
-        return PRICE_OF_BOOK.multiply(new BigDecimal(bookCount));
-
+    private BigDecimal calculatePrice() {
+        Integer booksTotal = countBooks();
+        return FULL_PRICE_PF_BOOKS.multiply(new BigDecimal(booksTotal));
     }
 
-    private int totalBookCount() {
-        int bookCount = 0;
-        for (Map.Entry<String, Integer> item : items.entrySet()) {
-            bookCount += item.getValue();
+    private Integer countBooks() {
+        Integer booksCount = 0;
+        for(Map.Entry<String, Integer> item : items.entrySet()) {
+            booksCount += item.getValue();
         }
-        return bookCount;
-
+        return booksCount;
     }
 }

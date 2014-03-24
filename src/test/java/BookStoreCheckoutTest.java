@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class BookStoreCheckoutTest {
 
-    MathContext mc = new MathContext(2);
+    MathContext mc = new MathContext(4, RoundingMode.HALF_UP);
     BookStoreCheckout store;
 
     @Before

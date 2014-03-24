@@ -25,7 +25,7 @@ public class DiscountCalculatorImpl implements DiscountCalculator {
 
     private BigDecimal calculateDiscount(int noOfDifferentBooks, int multiplier) {
         BigDecimal discountRate = getDiscountRate(noOfDifferentBooks);
-        BigDecimal discountPrice = BookStoreCheckout.PRICE_OF_BOOK.multiply(new BigDecimal(noOfDifferentBooks));
+        BigDecimal discountPrice = BookStoreCheckout.FULL_PRICE_PF_BOOKS.multiply(new BigDecimal(noOfDifferentBooks));
         return discountPrice.multiply(discountRate).multiply(new BigDecimal(multiplier));
     }
 
